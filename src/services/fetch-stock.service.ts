@@ -1,13 +1,14 @@
 import { stockResponseSchema } from "../schemas/stock.schema.ts";
-import { stocksArraySuggetionsSchema } from "../schemas/suggetions-stock.schema.ts";
+import { stocksArraySuggestionsSchema } from "../schemas/suggetions-stock.schema.ts";
+import type { StockResponseSchemaType, StockResponseErrorSchemaType } from "../schemas/stock.schema.ts";
+import type { StocksArraySuggestions } from "../schemas/suggetions-stock.schema.ts";
 
 export async function fetchStockService(ticker: string) {
     const url = `https://brapi.dev/api/quote/${ticker}?token=${process.env.BRAPI_KEY}&fundamental=true&range=1mo&interval=1d`
     const stockResponse = await fetch(url)
 
-    const data: any = await stockResponse.json();
-    console.log("data", data)
-    if(data.error == true) {
+    const data = await stockResponse.json() as StockResponseSchemaType | StockResponseErrorSchemaType;
+    if("error" in data && data.error == true) {
         throw new Error(data.message)
     }
 
@@ -25,9 +26,9 @@ export async function getStockSuggestionsList(query: string) {
     const url = `https://brapi.dev/api/quote/list?search=${query}&token=${process.env.BRAPI_KEY}&type=stock`
     const getStockSuggestionResult = await fetch(url)
 
-    const data = await getStockSuggestionResult.json() as { stocks: unknown }
+    const data = await getStockSuggestionResult.json() as StocksArraySuggestions
 
-    const parsed = stocksArraySuggetionsSchema.safeParse(data.stocks)
+    const parsed = stocksArraySuggestionsSchema.safeParse(data)
 
     if (!parsed.success) {
         console.error(parsed.error);
@@ -40,9 +41,9 @@ export async function getStockSuggestionsList(query: string) {
 export async function fetchTop10Stocks() {
     const url = `https://brapi.dev/api/quote/list?type=stock&sortBy=volume&sortOrder=desc&limit=20&page=1&token=${process.env.BRAPI_KEY}`
     const getTop10Stocks = await fetch(url)
-    const data = await getTop10Stocks.json() as { stocks: unknown }
+    const data = await getTop10Stocks.json() as StocksArraySuggestions
 
-    const parsed = stocksArraySuggetionsSchema.safeParse(data.stocks)
+    const parsed = stocksArraySuggestionsSchema.safeParse(data)
 
     if (!parsed.success) {
         console.error(parsed.error);

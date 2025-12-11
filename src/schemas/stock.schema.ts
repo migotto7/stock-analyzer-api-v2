@@ -44,3 +44,11 @@ export const stockResponseSchema = z.object({
   requestedAt: z.string(),
   took: z.number(),
 });
+
+export const StockResponseErrorSchema = z.object({
+  error: z.boolean(),
+  message: z.string()
+})
+
+export type StockResponseSchemaType = z.infer<typeof stockResponseSchema>
+export type StockResponseErrorSchemaType = z.infer<typeof StockResponseErrorSchema>

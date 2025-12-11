@@ -12,7 +12,9 @@ export const stockItemSchema = z.object({
   type: z.enum(["stock", "fund", "bdr"])
 });
 
-export const stocksArraySuggetionsSchema = z.array(stockItemSchema)
+export const stocksArraySuggestionsSchema = z.object({
+  stocks: z.array(stockItemSchema)
+})
 
-export type StocksArray = z.infer<typeof stocksArraySuggetionsSchema>
+export type StocksArraySuggestions = z.infer<typeof stocksArraySuggestionsSchema>
 export type StockItem = z.infer<typeof stockItemSchema>
