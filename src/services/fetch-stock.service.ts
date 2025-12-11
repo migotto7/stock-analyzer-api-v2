@@ -1,5 +1,5 @@
-import { stockResponseSchema } from "../schemas/stockSchema.ts";
-import { stocksArraySuggetionsSchema } from "../schemas/suggetionsStockSchema.ts";
+import { stockResponseSchema } from "../schemas/stock.schema.ts";
+import { stocksArraySuggetionsSchema } from "../schemas/suggetions-stock.schema.ts";
 
 export async function fetchStockService(ticker: string) {
     const url = `https://brapi.dev/api/quote/${ticker}?token=${process.env.BRAPI_KEY}&fundamental=true&range=1mo&interval=1d`

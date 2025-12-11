@@ -1,4 +1,4 @@
-import { fetchStockService, fetchTop10Stocks, getStockSuggestionsList } from "../services/fetchStockService.ts";
+import { fetchStockService, fetchTop10Stocks, getStockSuggestionsList } from "../services/fetch-stock.service.ts";
 import {type Request, type Response} from 'express'
 
 export async function getStock(req: Request, res: Response) {

@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import { hash } from 'argon2'
 import jwt from 'jsonwebtoken'
 
-export async function signInController(req: Request, res: Response) {
+export async function signInController(req: Request, res: Response) {   
     try {
         const { name, email, password } = req.body
 
