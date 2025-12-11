@@ -1,4 +1,4 @@
-import { type Request, type Response } from "express";
+import type { Request, Response } from "express";
 import { db } from "../database/client.ts";
 import { users } from "../database/schema.ts";
 import { eq } from "drizzle-orm";

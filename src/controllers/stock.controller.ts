@@ -1,10 +1,10 @@
 import { fetchStockService, fetchTop10Stocks, getStockSuggestionsList } from "../services/fetch-stock.service.ts";
-import {type Request, type Response} from 'express'
+import type { Request, Response } from 'express'
 
 export async function getStock(req: Request, res: Response) {
     try {
         const ticker = req.params.ticker?.toUpperCase();
-        
+
         if (!ticker) {
             return res.status(400).json({ error: "Ticker is required" });
         }
@@ -20,17 +20,17 @@ export async function getStock(req: Request, res: Response) {
 }
 
 export async function searchSuggestionsList(req: Request, res: Response) {
-    try{    
+    try {
         const querySearch = req.params.query?.toUpperCase()
 
-        if(!querySearch) {
+        if (!querySearch) {
             return res.status(400).json({ error: "Query is required" });
         }
 
         const searchStocks = await getStockSuggestionsList(querySearch)
 
         return res.status(200).json(searchStocks)
-    } catch(err: any) {
+    } catch (err: any) {
         return res
             .status(500)
             .json({ error: err.message || "Internal server error" });

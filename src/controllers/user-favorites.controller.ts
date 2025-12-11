@@ -1,5 +1,5 @@
 import { db } from "../database/client.ts";
-import { type Request, type Response } from "express";
+import type { Request, Response } from "express";
 import { userFavorites } from "../database/schema.ts";
 import { and, eq } from "drizzle-orm";
 
